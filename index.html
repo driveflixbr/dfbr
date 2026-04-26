@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="en">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Streamverse — Arquivo</title>
-<meta name="description" content="Um arquivo de streaming leve, apenas em texto. Navegue por plataformas, filmes e séries." />
+<title>Streamverse — Archive</title>
+<meta name="description" content="A lightweight, text-only streaming archive. Browse platforms, movies, and series." />
 <style>
   :root {
     --bg: #0b0b0b;
@@ -209,38 +209,85 @@
   }
 
   /* Title list */
-  .letter-group { margin-bottom: 32px; }
+  .letter-group { margin-bottom: 36px; }
   .letter-heading {
-    font-size: 28px;
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 22px;
     font-weight: 800;
-    color: var(--accent);
-    margin: 0 0 12px;
-    padding-bottom: 8px;
-    border-bottom: 1px solid var(--border);
+    color: var(--text);
+    margin: 0 0 16px;
+    padding: 8px 16px 8px 14px;
+    background: linear-gradient(90deg, rgba(229,9,20,.18), rgba(229,9,20,0));
+    border-left: 4px solid var(--accent);
+    border-radius: 4px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+  .letter-heading .count-badge {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-mute);
+    background: var(--bg-elev-2);
+    padding: 2px 8px;
+    border-radius: 10px;
+    letter-spacing: .5px;
   }
   .titles {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-    gap: 6px;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 10px;
+    align-items: stretch;
   }
   .title-item {
-    background: transparent;
-    border: 1px solid transparent;
-    border-radius: 6px;
-    padding: 10px 14px;
+    background: var(--bg-elev);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px 16px;
     cursor: pointer;
     color: var(--text);
-    font-size: 15px;
     text-align: left;
-    transition: all 150ms ease;
+    transition: transform 220ms cubic-bezier(.2,.7,.2,1),
+                background 220ms ease,
+                border-color 220ms ease,
+                box-shadow 220ms ease;
     font-family: inherit;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-height: 64px;
+  }
+  .title-item .t-name {
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 1.3;
+    color: var(--text);
+  }
+  .title-item .t-meta {
+    font-size: 12px;
+    color: var(--text-mute);
+    font-weight: 500;
+    letter-spacing: .3px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .title-item .t-meta .dot {
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    background: var(--text-mute);
+    display: inline-block;
   }
   .title-item:hover {
-    background: var(--bg-elev);
-    border-color: var(--border);
-    color: var(--accent);
-    padding-left: 18px;
+    background: var(--bg-elev-2);
+    border-color: var(--accent);
+    transform: translateY(-2px) scale(1.015);
+    box-shadow: 0 8px 24px rgba(229,9,20,.15);
   }
+  .title-item:hover .t-name { color: var(--accent); }
+  .title-item:hover .t-meta { color: var(--text-dim); }
 
   .empty-state {
     text-align: center;
@@ -490,27 +537,28 @@
   <header>
     <div class="header-inner">
       <div class="logo" id="logo">Stream<span>verse</span></div>
-      <nav class="breadcrumb" id="breadcrumb" aria-label="Navegação"></nav>
+      <nav class="breadcrumb" id="breadcrumb" aria-label="Breadcrumb"></nav>
       <div class="search-wrap hidden" id="searchWrap">
         <span class="search-icon" aria-hidden="true">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path></svg>
         </span>
-        <input id="search" class="search-input" type="text" placeholder="Buscar títulos..." aria-label="Buscar títulos" />
+        <input id="search" class="search-input" type="text" placeholder="Search titles..." aria-label="Search titles" />
       </div>
     </div>
   </header>
 
   <main id="app"></main>
 
+  <!-- Modal -->
   <div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
     <div class="modal-content">
       <div class="modal-header">
-        <h3 class="modal-title" id="modalTitle">Título</h3>
+        <h3 class="modal-title" id="modalTitle">Title</h3>
         <div class="modal-actions">
-          <button class="icon-btn" id="copyBtn" title="Copiar link" aria-label="Copiar link do vídeo">
+          <button class="icon-btn" id="copyBtn" title="Copy link" aria-label="Copy video link">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg>
           </button>
-          <button class="icon-btn" id="closeBtn" title="Fechar" aria-label="Fechar player">
+          <button class="icon-btn" id="closeBtn" title="Close" aria-label="Close player">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg>
           </button>
         </div>
@@ -521,10 +569,11 @@
     </div>
   </div>
 
+  <!-- Source selection modal -->
   <div class="source-modal" id="sourceModal" role="dialog" aria-modal="true" aria-labelledby="sourceTitle">
     <div class="source-card">
-      <p class="source-eyebrow">Escolha a fonte</p>
-      <h3 class="source-title" id="sourceTitle">Título</h3>
+      <p class="source-eyebrow">Choose source</p>
+      <h3 class="source-title" id="sourceTitle">Title</h3>
       <div class="source-buttons">
         <button class="source-btn drive" id="sourceDrive">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v6"/><path d="m4.93 10.93 4.24 4.24"/><path d="M2 18h6"/><path d="M16 18h6"/><path d="m14.83 15.17 4.24-4.24"/><path d="M8 22h8"/><circle cx="12" cy="14" r="2"/></svg>
@@ -535,28 +584,28 @@
           Telegram
         </button>
       </div>
-      <button class="source-cancel" id="sourceCancel">Cancelar</button>
+      <button class="source-cancel" id="sourceCancel">Cancel</button>
     </div>
   </div>
 
-  <div class="toast" id="toast">Link copiado</div>
+  <div class="toast" id="toast">Link copied</div>
 
 <script>
 /* =========================================================
-   DATA — platform → type → titles (substitua os links livremente)
+   DATA — platform → type → titles (replace links freely)
    ========================================================= */
 const DATA = {
   netflix: {
     name: "Netflix",
     movies: [
       { title: "Avatar", links: { drive: "https://drive.google.com/file/d/avatar", telegram: "https://t.me/streamverse/avatar" } },
-      { title: "Vingadores", links: { drive: "https://drive.google.com/file/d/avengers", telegram: "https://t.me/streamverse/avengers" } },
-      { title: "Batman", links: { drive: "https://drive.google.com/file/d/avatar", telegram: "https://t.me/streamverse/avatar" } },
+      { title: "Avengers", links: { drive: "https://drive.google.com/file/d/avengers", telegram: "https://t.me/streamverse/avengers" } },
+      { title: "Batman", link: "https://drive.google.com/file/d/batman" },
       { title: "Blade Runner 2049", links: { drive: "https://drive.google.com/file/d/blade-runner", telegram: "https://t.me/streamverse/blade-runner" } },
-      { title: "Duna", links: { telegram: "https://t.me/streamverse/dune" } },
-      { title: "A Origem", links: { drive: "https://drive.google.com/file/d/inception", telegram: "https://t.me/streamverse/inception" } },
-      { title: "Interestelar", links: { drive: "https://drive.google.com/file/d/interstellar", telegram: "https://t.me/streamverse/interstellar" } },
-      { title: "O Irlandês", link: "https://drive.google.com/file/d/irishman" },
+      { title: "Dune", links: { telegram: "https://t.me/streamverse/dune" } },
+      { title: "Inception", links: { drive: "https://drive.google.com/file/d/inception", telegram: "https://t.me/streamverse/inception" } },
+      { title: "Interstellar", links: { drive: "https://drive.google.com/file/d/interstellar", telegram: "https://t.me/streamverse/interstellar" } },
+      { title: "The Irishman", link: "https://drive.google.com/file/d/irishman" },
       { title: "Roma", links: { drive: "https://drive.google.com/file/d/roma", telegram: "https://t.me/streamverse/roma" } }
     ],
     series: [
@@ -566,7 +615,7 @@ const DATA = {
       { title: "Dark", link: "https://example.com/embed/dark" },
       { title: "Mindhunter", link: "https://example.com/embed/mindhunter" },
       { title: "Ozark", link: "https://example.com/embed/ozark" },
-      { title: "Stranger Things", links: { drive: "https://drive.google.com/file/d/avatar", telegram: "https://t.me/streamverse/avatar" } },
+      { title: "Stranger Things", link: "https://example.com/embed/stranger-things" },
       { title: "The Witcher", link: "https://example.com/embed/witcher" }
     ]
   },
@@ -588,15 +637,15 @@ const DATA = {
   hbomax: {
     name: "HBO Max",
     movies: [
-      { title: "Duna: Parte Dois", link: "https://example.com/embed/dune-2" },
-      { title: "Matrix", link: "https://example.com/embed/matrix" },
-      { title: "Coringa", link: "https://example.com/embed/joker" },
+      { title: "Dune: Part Two", link: "https://example.com/embed/dune-2" },
+      { title: "The Matrix", link: "https://example.com/embed/matrix" },
+      { title: "Joker", link: "https://example.com/embed/joker" },
       { title: "Oppenheimer", link: "https://example.com/embed/oppenheimer" }
     ],
     series: [
       { title: "Chernobyl", link: "https://example.com/embed/chernobyl" },
       { title: "Game of Thrones", link: "https://example.com/embed/got" },
-      { title: "A Casa do Dragão", link: "https://example.com/embed/hotd" },
+      { title: "House of the Dragon", link: "https://example.com/embed/hotd" },
       { title: "Succession", link: "https://example.com/embed/succession" },
       { title: "The Last of Us", link: "https://example.com/embed/last-of-us" },
       { title: "True Detective", link: "https://example.com/embed/true-detective" }
@@ -605,10 +654,10 @@ const DATA = {
   prime: {
     name: "Prime Video",
     movies: [
-      { title: "Doentes de Amor", link: "https://example.com/embed/big-sick" },
-      { title: "Manchester à Beira-Mar", link: "https://example.com/embed/manchester" },
-      { title: "O Som do Silêncio", link: "https://example.com/embed/sound-of-metal" },
-      { title: "A Guerra do Amanhã", link: "https://example.com/embed/tomorrow-war" }
+      { title: "The Big Sick", link: "https://example.com/embed/big-sick" },
+      { title: "Manchester by the Sea", link: "https://example.com/embed/manchester" },
+      { title: "Sound of Metal", link: "https://example.com/embed/sound-of-metal" },
+      { title: "The Tomorrow War", link: "https://example.com/embed/tomorrow-war" }
     ],
     series: [
       { title: "The Boys", link: "https://example.com/embed/the-boys" },
@@ -622,28 +671,28 @@ const DATA = {
     name: "Disney+",
     movies: [
       { title: "Encanto", link: "https://example.com/embed/encanto" },
-      { title: "Divertida Mente 2", link: "https://example.com/embed/inside-out-2" },
+      { title: "Inside Out 2", link: "https://example.com/embed/inside-out-2" },
       { title: "Soul", link: "https://example.com/embed/soul" },
-      { title: "Red: Crescer é uma Fera", link: "https://example.com/embed/turning-red" }
+      { title: "Turning Red", link: "https://example.com/embed/turning-red" }
     ],
     series: [
       { title: "Andor", link: "https://example.com/embed/andor" },
       { title: "Loki", link: "https://example.com/embed/loki" },
-      { title: "O Mandaloriano", link: "https://example.com/embed/mandalorian" },
+      { title: "The Mandalorian", link: "https://example.com/embed/mandalorian" },
       { title: "WandaVision", link: "https://example.com/embed/wandavision" }
     ]
   },
   apple: {
     name: "Apple TV+",
     movies: [
-      { title: "No Ritmo do Coração", link: "https://example.com/embed/coda" },
-      { title: "Assassinos da Lua das Flores", link: "https://example.com/embed/killers" },
-      { title: "Napoleão", link: "https://example.com/embed/napoleon" }
+      { title: "CODA", link: "https://example.com/embed/coda" },
+      { title: "Killers of the Flower Moon", link: "https://example.com/embed/killers" },
+      { title: "Napoleon", link: "https://example.com/embed/napoleon" }
     ],
     series: [
-      { title: "Fundação", link: "https://example.com/embed/foundation" },
+      { title: "Foundation", link: "https://example.com/embed/foundation" },
       { title: "The Morning Show", link: "https://example.com/embed/morning-show" },
-      { title: "Ruptura", link: "https://example.com/embed/severance" },
+      { title: "Severance", link: "https://example.com/embed/severance" },
       { title: "Slow Horses", link: "https://example.com/embed/slow-horses" },
       { title: "Ted Lasso", link: "https://example.com/embed/ted-lasso" }
     ]
@@ -651,11 +700,11 @@ const DATA = {
 };
 
 /* =========================================================
-   ESTADO
+   STATE
    ========================================================= */
 const state = {
   view: "platforms",   // platforms | types | titles
-  platform: null,      // chave em DATA
+  platform: null,      // key in DATA
   type: null,          // 'movies' | 'series'
   search: ""
 };
@@ -675,7 +724,7 @@ const toast = document.getElementById("toast");
 let currentLink = "";
 
 /* =========================================================
-   RENDERIZAÇÃO
+   RENDERING
    ========================================================= */
 function render() {
   app.innerHTML = "";
@@ -689,7 +738,7 @@ function render() {
 
 function renderBreadcrumb() {
   const parts = [];
-  parts.push(`<span class="crumb" data-nav="platforms">Início</span>`);
+  parts.push(`<span class="crumb" data-nav="platforms">Home</span>`);
   if (state.platform) {
     parts.push(`<span class="sep">/</span>`);
     const isLeaf = state.view === "types";
@@ -699,7 +748,7 @@ function renderBreadcrumb() {
   }
   if (state.type) {
     parts.push(`<span class="sep">/</span>`);
-    parts.push(`<span class="current">${state.type === "movies" ? "Filmes" : "Séries"}</span>`);
+    parts.push(`<span class="current">${state.type === "movies" ? "Movies" : "Series"}</span>`);
   }
   breadcrumb.innerHTML = parts.join("");
   breadcrumb.querySelectorAll(".crumb").forEach(el => {
@@ -725,8 +774,8 @@ function renderPlatforms() {
   const view = document.createElement("div");
   view.className = "view";
   view.innerHTML = `
-    <h1 class="page-title">Escolha uma plataforma</h1>
-    <p class="page-subtitle">Navegue no arquivo por serviço de streaming.</p>
+    <h1 class="page-title">Choose a platform</h1>
+    <p class="page-subtitle">Browse the archive by streaming service.</p>
     <div class="platform-list" id="platformList"></div>
   `;
   app.appendChild(view);
@@ -739,7 +788,7 @@ function renderPlatforms() {
     btn.innerHTML = `
       <div>
         <div class="name">${plat.name}</div>
-        <div class="meta">${plat.movies.length} filmes · ${plat.series.length} séries</div>
+        <div class="meta">${plat.movies.length} movies · ${plat.series.length} series</div>
       </div>
       <span class="arrow" aria-hidden="true">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
@@ -755,17 +804,17 @@ function renderTypes() {
   const view = document.createElement("div");
   view.className = "view";
   view.innerHTML = `
-    <button class="back-btn" id="backBtn">← Voltar</button>
+    <button class="back-btn" id="backBtn">← Back</button>
     <h1 class="page-title">${plat.name}</h1>
-    <p class="page-subtitle">O que você gostaria de assistir?</p>
+    <p class="page-subtitle">What would you like to watch?</p>
     <div class="type-list">
       <button class="type-card" data-type="movies">
-        <div class="label">Filmes</div>
-        <div class="count">${plat.movies.length} títulos</div>
+        <div class="label">Movies</div>
+        <div class="count">${plat.movies.length} titles</div>
       </button>
       <button class="type-card" data-type="series">
-        <div class="label">Séries</div>
-        <div class="count">${plat.series.length} títulos</div>
+        <div class="label">Series</div>
+        <div class="count">${plat.series.length} titles</div>
       </button>
     </div>
   `;
@@ -783,9 +832,9 @@ function renderTitles() {
   const view = document.createElement("div");
   view.className = "view";
   view.innerHTML = `
-    <button class="back-btn" id="backBtn">← Voltar</button>
-    <h1 class="page-title">${plat.name} — ${state.type === "movies" ? "Filmes" : "Séries"}</h1>
-    <p class="page-subtitle">${items.length} título${items.length === 1 ? "" : "s"} disponível${items.length === 1 ? "" : "is"}.</p>
+    <button class="back-btn" id="backBtn">← Back</button>
+    <h1 class="page-title">${plat.name} — ${state.type === "movies" ? "Movies" : "Series"}</h1>
+    <p class="page-subtitle">${items.length} title${items.length === 1 ? "" : "s"} available.</p>
     <div id="titleArea"></div>
   `;
   app.appendChild(view);
@@ -808,13 +857,13 @@ function renderTitleList(items) {
     area.innerHTML = `
       <div class="empty-state">
         <div class="icon">∅</div>
-        <p>Nenhum título corresponde a "<strong>${escapeHtml(state.search)}</strong>".</p>
+        <p>No titles match "<strong>${escapeHtml(state.search)}</strong>".</p>
       </div>
     `;
     return;
   }
 
-  // Agrupar por primeira letra
+  // Group by first letter
   const groups = {};
   filtered.forEach(item => {
     const ch = item.title.charAt(0).toUpperCase();
@@ -849,7 +898,7 @@ function renderTitleList(items) {
 }
 
 /* =========================================================
-   RESOLUÇÃO DE FONTE
+   SOURCE RESOLUTION
    ========================================================= */
 function getSources(item) {
   const out = [];
@@ -874,7 +923,7 @@ function handleTitleClick(item) {
 }
 
 /* =========================================================
-   NAVEGAÇÃO
+   NAVIGATION
    ========================================================= */
 function goHome() {
   state.view = "platforms";
@@ -908,7 +957,7 @@ function openModal(title, link) {
 }
 function closeModal() {
   modal.classList.remove("open");
-  player.src = "";          // para o vídeo
+  player.src = "";          // stops video
   document.body.classList.remove("modal-open");
   currentLink = "";
   copyBtn.classList.remove("copied");
@@ -925,7 +974,7 @@ document.addEventListener("keydown", (e) => {
 });
 
 /* =========================================================
-   MODAL DE SELEÇÃO DE FONTE
+   SOURCE SELECTION MODAL
    ========================================================= */
 const sourceModal = document.getElementById("sourceModal");
 const sourceTitleEl = document.getElementById("sourceTitle");
@@ -975,12 +1024,12 @@ copyBtn.addEventListener("click", async () => {
     document.body.removeChild(ta);
   }
   copyBtn.classList.add("copied");
-  showToast("Link copiado para a área de transferência");
+  showToast("Link copied to clipboard");
   setTimeout(() => copyBtn.classList.remove("copied"), 1500);
 });
 
 /* =========================================================
-   BUSCA
+   SEARCH
    ========================================================= */
 searchInput.addEventListener("input", (e) => {
   state.search = e.target.value;
@@ -993,7 +1042,7 @@ searchInput.addEventListener("input", (e) => {
 logo.addEventListener("click", goHome);
 
 /* =========================================================
-   UTILITÁRIOS
+   UTILITIES
    ========================================================= */
 function escapeHtml(s) {
   return String(s).replace(/[&<>"']/g, m => ({
@@ -1011,7 +1060,7 @@ function showToast(msg) {
 }
 
 /* =========================================================
-   INICIALIZAÇÃO
+   INIT
    ========================================================= */
 render();
 </script>
