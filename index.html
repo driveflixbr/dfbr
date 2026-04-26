@@ -543,31 +543,109 @@
 
 <script>
 /* =========================================================
-   DATA — IMPORTANTE: Para ter escolha de links, use "links"
-   Para link direto (sem escolha), use apenas "link"
+   DATA — platform → type → titles (substitua os links livremente)
    ========================================================= */
 const DATA = {
   netflix: {
     name: "Netflix",
     movies: [
-      { title: "Avatar", links: { drive: "https://drive.google.com/LINK_AVATAR", telegram: "https://t.me/LINK_AVATAR" } },
-      { title: "Vingadores", links: { drive: "https://drive.google.com/LINK_VINGADORES", telegram: "https://t.me/LINK_VINGADORES" } },
-      { title: "Batman", link: "https://drive.google.com/LINK_DIRETO_BATMAN" },
-      { title: "Blade Runner 2049", link: "https://example.com/blade" }
+      { title: "Avatar", links: { drive: "https://drive.google.com/file/d/avatar", telegram: "https://t.me/streamverse/avatar" } },
+      { title: "Vingadores", links: { drive: "https://drive.google.com/file/d/avengers", telegram: "https://t.me/streamverse/avengers" } },
+      { title: "Batman", link: "https://drive.google.com/file/d/batman" },
+      { title: "Blade Runner 2049", links: { drive: "https://drive.google.com/file/d/blade-runner", telegram: "https://t.me/streamverse/blade-runner" } },
+      { title: "Duna", links: { telegram: "https://t.me/streamverse/dune" } },
+      { title: "A Origem", links: { drive: "https://drive.google.com/file/d/inception", telegram: "https://t.me/streamverse/inception" } },
+      { title: "Interestelar", links: { drive: "https://drive.google.com/file/d/interstellar", telegram: "https://t.me/streamverse/interstellar" } },
+      { title: "O Irlandês", link: "https://drive.google.com/file/d/irishman" },
+      { title: "Roma", links: { drive: "https://drive.google.com/file/d/roma", telegram: "https://t.me/streamverse/roma" } }
     ],
     series: [
-      { title: "Stranger Things", links: { drive: "https://drive.google.com/ST", telegram: "https://t.me/ST" } },
-      { title: "Black Mirror", links: { drive: "https://drive.google.com/BM", telegram: "https://t.me/BM" } },
-      { title: "Breaking Bad", link: "https://example.com/bb" }
+      { title: "Black Mirror", link: "https://example.com/embed/black-mirror" },
+      { title: "Breaking Bad", link: "https://example.com/embed/breaking-bad" },
+      { title: "The Crown", link: "https://example.com/embed/the-crown" },
+      { title: "Dark", link: "https://example.com/embed/dark" },
+      { title: "Mindhunter", link: "https://example.com/embed/mindhunter" },
+      { title: "Ozark", link: "https://example.com/embed/ozark" },
+      { title: "Stranger Things", link: "https://example.com/embed/stranger-things" },
+      { title: "The Witcher", link: "https://example.com/embed/witcher" }
     ]
   },
   globoplay: {
     name: "Globoplay",
     movies: [
-      { title: "Cidade de Deus", links: { drive: "https://drive.google.com/CDD", telegram: "https://t.me/CDD" } }
+      { title: "Bacurau", link: "https://example.com/embed/bacurau" },
+      { title: "Cidade de Deus", link: "https://example.com/embed/cidade-de-deus" },
+      { title: "Central do Brasil", link: "https://example.com/embed/central-do-brasil" },
+      { title: "Tropa de Elite", link: "https://example.com/embed/tropa-de-elite" }
     ],
     series: [
-      { title: "Sob Pressão", link: "https://example.com/sp" }
+      { title: "Aruanas", link: "https://example.com/embed/aruanas" },
+      { title: "Cine Holliúdy", link: "https://example.com/embed/cine-holliudy" },
+      { title: "Onde Está Meu Coração", link: "https://example.com/embed/onde-esta" },
+      { title: "Sob Pressão", link: "https://example.com/embed/sob-pressao" }
+    ]
+  },
+  hbomax: {
+    name: "HBO Max",
+    movies: [
+      { title: "Duna: Parte Dois", link: "https://example.com/embed/dune-2" },
+      { title: "Matrix", link: "https://example.com/embed/matrix" },
+      { title: "Coringa", link: "https://example.com/embed/joker" },
+      { title: "Oppenheimer", link: "https://example.com/embed/oppenheimer" }
+    ],
+    series: [
+      { title: "Chernobyl", link: "https://example.com/embed/chernobyl" },
+      { title: "Game of Thrones", link: "https://example.com/embed/got" },
+      { title: "A Casa do Dragão", link: "https://example.com/embed/hotd" },
+      { title: "Succession", link: "https://example.com/embed/succession" },
+      { title: "The Last of Us", link: "https://example.com/embed/last-of-us" },
+      { title: "True Detective", link: "https://example.com/embed/true-detective" }
+    ]
+  },
+  prime: {
+    name: "Prime Video",
+    movies: [
+      { title: "Doentes de Amor", link: "https://example.com/embed/big-sick" },
+      { title: "Manchester à Beira-Mar", link: "https://example.com/embed/manchester" },
+      { title: "O Som do Silêncio", link: "https://example.com/embed/sound-of-metal" },
+      { title: "A Guerra do Amanhã", link: "https://example.com/embed/tomorrow-war" }
+    ],
+    series: [
+      { title: "The Boys", link: "https://example.com/embed/the-boys" },
+      { title: "Fallout", link: "https://example.com/embed/fallout" },
+      { title: "Invincible", link: "https://example.com/embed/invincible" },
+      { title: "The Marvelous Mrs. Maisel", link: "https://example.com/embed/maisel" },
+      { title: "Reacher", link: "https://example.com/embed/reacher" }
+    ]
+  },
+  disney: {
+    name: "Disney+",
+    movies: [
+      { title: "Encanto", link: "https://example.com/embed/encanto" },
+      { title: "Divertida Mente 2", link: "https://example.com/embed/inside-out-2" },
+      { title: "Soul", link: "https://example.com/embed/soul" },
+      { title: "Red: Crescer é uma Fera", link: "https://example.com/embed/turning-red" }
+    ],
+    series: [
+      { title: "Andor", link: "https://example.com/embed/andor" },
+      { title: "Loki", link: "https://example.com/embed/loki" },
+      { title: "O Mandaloriano", link: "https://example.com/embed/mandalorian" },
+      { title: "WandaVision", link: "https://example.com/embed/wandavision" }
+    ]
+  },
+  apple: {
+    name: "Apple TV+",
+    movies: [
+      { title: "No Ritmo do Coração", link: "https://example.com/embed/coda" },
+      { title: "Assassinos da Lua das Flores", link: "https://example.com/embed/killers" },
+      { title: "Napoleão", link: "https://example.com/embed/napoleon" }
+    ],
+    series: [
+      { title: "Fundação", link: "https://example.com/embed/foundation" },
+      { title: "The Morning Show", link: "https://example.com/embed/morning-show" },
+      { title: "Ruptura", link: "https://example.com/embed/severance" },
+      { title: "Slow Horses", link: "https://example.com/embed/slow-horses" },
+      { title: "Ted Lasso", link: "https://example.com/embed/ted-lasso" }
     ]
   }
 };
@@ -576,9 +654,9 @@ const DATA = {
    ESTADO
    ========================================================= */
 const state = {
-  view: "platforms",
-  platform: null,
-  type: null,
+  view: "platforms",   // platforms | types | titles
+  platform: null,      // chave em DATA
+  type: null,          // 'movies' | 'series'
   search: ""
 };
 
@@ -655,6 +733,7 @@ function renderPlatforms() {
 
   const list = view.querySelector("#platformList");
   Object.entries(DATA).forEach(([key, plat]) => {
+    const total = plat.movies.length + plat.series.length;
     const btn = document.createElement("button");
     btn.className = "platform-card";
     btn.innerHTML = `
@@ -662,7 +741,7 @@ function renderPlatforms() {
         <div class="name">${plat.name}</div>
         <div class="meta">${plat.movies.length} filmes · ${plat.series.length} séries</div>
       </div>
-      <span class="arrow">
+      <span class="arrow" aria-hidden="true">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
       </span>
     `;
@@ -706,7 +785,7 @@ function renderTitles() {
   view.innerHTML = `
     <button class="back-btn" id="backBtn">← Voltar</button>
     <h1 class="page-title">${plat.name} — ${state.type === "movies" ? "Filmes" : "Séries"}</h1>
-    <p class="page-subtitle">${items.length} título(s) disponível(is).</p>
+    <p class="page-subtitle">${items.length} título${items.length === 1 ? "" : "s"} disponível${items.length === 1 ? "" : "is"}.</p>
     <div id="titleArea"></div>
   `;
   app.appendChild(view);
@@ -726,13 +805,20 @@ function renderTitleList(items) {
   filtered.sort((a, b) => a.title.localeCompare(b.title));
 
   if (filtered.length === 0) {
-    area.innerHTML = `<div class="empty-state"><p>Nenhum título encontrado.</p></div>`;
+    area.innerHTML = `
+      <div class="empty-state">
+        <div class="icon">∅</div>
+        <p>Nenhum título corresponde a "<strong>${escapeHtml(state.search)}</strong>".</p>
+      </div>
+    `;
     return;
   }
 
+  // Agrupar por primeira letra
   const groups = {};
   filtered.forEach(item => {
-    const letter = item.title.charAt(0).toUpperCase();
+    const ch = item.title.charAt(0).toUpperCase();
+    const letter = /[A-Z]/.test(ch) ? ch : "#";
     if (!groups[letter]) groups[letter] = [];
     groups[letter].push(item);
   });
@@ -742,11 +828,14 @@ function renderTitleList(items) {
     <section class="letter-group">
       <h2 class="letter-heading">${letter}</h2>
       <div class="titles">
-        ${groups[letter].map((item, idx) => `
-          <button class="title-item" data-idx="${filtered.indexOf(item)}">
+        ${groups[letter].map(item => {
+          const idx = filtered.indexOf(item);
+          return `
+          <button class="title-item" data-idx="${idx}" data-title="${escapeAttr(item.title)}">
             ${escapeHtml(item.title)}
           </button>
-        `).join("")}
+        `;
+        }).join("")}
       </div>
     </section>
   `).join("");
@@ -754,42 +843,89 @@ function renderTitleList(items) {
   area.querySelectorAll(".title-item").forEach(btn => {
     btn.addEventListener("click", () => {
       const item = filtered[parseInt(btn.dataset.idx, 10)];
-      handleTitleClick(item);
+      if (item) handleTitleClick(item);
     });
   });
 }
 
 /* =========================================================
-   LÓGICA DE CLIQUE E FONTES (CORRIGIDO)
+   RESOLUÇÃO DE FONTE
    ========================================================= */
-function handleTitleClick(item) {
-  // Se o item tiver o objeto "links" com mais de uma opção
-  if (item.links) {
-    const sources = [];
-    if (item.links.drive) sources.push({ kind: "drive", url: item.links.drive });
-    if (item.links.telegram) sources.push({ kind: "telegram", url: item.links.telegram });
-    
-    if (sources.length > 1) {
-      openSourceModal(item, sources);
-    } else if (sources.length === 1) {
-      window.open(sources[0].url, "_blank");
-    }
-  } 
-  // Se tiver apenas o "link" direto (estilo antigo)
-  else if (item.link) {
-    window.open(item.link, "_blank");
+function getSources(item) {
+  const out = [];
+  if (item && item.links) {
+    if (item.links.drive) out.push({ kind: "drive", url: item.links.drive });
+    if (item.links.telegram) out.push({ kind: "telegram", url: item.links.telegram });
   }
+  if (item && item.link && out.length === 0) {
+    out.push({ kind: "drive", url: item.link });
+  }
+  return out;
+}
+
+function handleTitleClick(item) {
+  const sources = getSources(item);
+  if (sources.length === 0) return;
+  if (sources.length === 1) {
+    window.open(sources[0].url, "_blank", "noopener,noreferrer");
+    return;
+  }
+  openSourceModal(item, sources);
 }
 
 /* =========================================================
    NAVEGAÇÃO
    ========================================================= */
-function goHome() { state.view = "platforms"; state.platform = null; state.type = null; render(); }
-function goTypes(key) { state.view = "types"; state.platform = key; state.type = null; render(); }
-function goTitles(key, type) { state.view = "titles"; state.platform = key; state.type = type; render(); }
+function goHome() {
+  state.view = "platforms";
+  state.platform = null;
+  state.type = null;
+  state.search = "";
+  render();
+}
+function goTypes(platformKey) {
+  state.view = "types";
+  state.platform = platformKey;
+  state.type = null;
+  render();
+}
+function goTitles(platformKey, type) {
+  state.view = "titles";
+  state.platform = platformKey;
+  state.type = type;
+  render();
+}
 
 /* =========================================================
-   MODAIS
+   MODAL
+   ========================================================= */
+function openModal(title, link) {
+  currentLink = link;
+  modalTitle.textContent = title;
+  player.src = link;
+  modal.classList.add("open");
+  document.body.classList.add("modal-open");
+}
+function closeModal() {
+  modal.classList.remove("open");
+  player.src = "";          // para o vídeo
+  document.body.classList.remove("modal-open");
+  currentLink = "";
+  copyBtn.classList.remove("copied");
+}
+
+closeBtn.addEventListener("click", closeModal);
+modal.addEventListener("click", (e) => {
+  if (e.target === modal) closeModal();
+});
+document.addEventListener("keydown", (e) => {
+  if (e.key !== "Escape") return;
+  if (sourceModal.classList.contains("open")) closeSourceModal();
+  else if (modal.classList.contains("open")) closeModal();
+});
+
+/* =========================================================
+   MODAL DE SELEÇÃO DE FONTE
    ========================================================= */
 const sourceModal = document.getElementById("sourceModal");
 const sourceTitleEl = document.getElementById("sourceTitle");
@@ -808,26 +944,43 @@ function openSourceModal(item, sources) {
   sourceModal.classList.add("open");
   document.body.classList.add("modal-open");
 }
-
 function closeSourceModal() {
   sourceModal.classList.remove("open");
   document.body.classList.remove("modal-open");
+  activeSources = { drive: null, telegram: null };
 }
-
 sourceDriveBtn.addEventListener("click", () => {
-  if (activeSources.drive) window.open(activeSources.drive, "_blank");
+  if (activeSources.drive) window.open(activeSources.drive, "_blank", "noopener,noreferrer");
   closeSourceModal();
 });
-
 sourceTelegramBtn.addEventListener("click", () => {
-  if (activeSources.telegram) window.open(activeSources.telegram, "_blank");
+  if (activeSources.telegram) window.open(activeSources.telegram, "_blank", "noopener,noreferrer");
   closeSourceModal();
 });
-
 sourceCancelBtn.addEventListener("click", closeSourceModal);
+sourceModal.addEventListener("click", (e) => {
+  if (e.target === sourceModal) closeSourceModal();
+});
+
+copyBtn.addEventListener("click", async () => {
+  if (!currentLink) return;
+  try {
+    await navigator.clipboard.writeText(currentLink);
+  } catch {
+    const ta = document.createElement("textarea");
+    ta.value = currentLink;
+    document.body.appendChild(ta);
+    ta.select();
+    try { document.execCommand("copy"); } catch {}
+    document.body.removeChild(ta);
+  }
+  copyBtn.classList.add("copied");
+  showToast("Link copiado para a área de transferência");
+  setTimeout(() => copyBtn.classList.remove("copied"), 1500);
+});
 
 /* =========================================================
-   OUTROS
+   BUSCA
    ========================================================= */
 searchInput.addEventListener("input", (e) => {
   state.search = e.target.value;
@@ -839,12 +992,27 @@ searchInput.addEventListener("input", (e) => {
 
 logo.addEventListener("click", goHome);
 
+/* =========================================================
+   UTILITÁRIOS
+   ========================================================= */
 function escapeHtml(s) {
   return String(s).replace(/[&<>"']/g, m => ({
     "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
   }[m]));
 }
+function escapeAttr(s) { return escapeHtml(s); }
 
+let toastTimer;
+function showToast(msg) {
+  toast.textContent = msg;
+  toast.classList.add("show");
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => toast.classList.remove("show"), 1800);
+}
+
+/* =========================================================
+   INICIALIZAÇÃO
+   ========================================================= */
 render();
 </script>
 </body>
